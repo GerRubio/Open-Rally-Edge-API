@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  
+  # NGINX
+  open-rally-edge-nginx:
+    container_name: open-rally-edge-nginx
+    build:
+      context: ./docker/nginx
+      args:
+        UID: $U_ID
+    ports:
+      - 500:80
+    volumes:
+      - ./public:/appdata/www/public
+    depends_on:
+      - open-rally-edge-core
+    networks:
+      - open-rally-edge-network
+
+  # CORE
+  open-rally-edge-core:
+    container_name: open-rally-edge-core
+    build:
+      context: ./docker/php
+      args:
+        UID: $U_ID
+    ### XDEBUG 3 ###
+    # Use your client IP here
+    # Linux: run "ip a | grep docker0"
+    # Windows (with WSL2): grep nameserver /etc/resolv.conf | cut -d ' ' -f2
+    environment:
+        XDEBUG_CLIENT_HOST: 172.0.0.11
+        XDEBUG_CLIENT_PORT: 9003
+        PHP_IDE_CONFIG: serverName=application
+    volumes:
+      - ./:/appdata/www
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    depends_on:
+      - open-rally-edge-db
+    networks:
+      - open-rally-edge-network
+
+  # DATABASE
+  open-rally-edge-db:
+    container_name: open-rally-edge-db
+    build:
+      context: ./docker/database
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: open-rally-edge
+      MYSQL_USER: ger_rubio
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --sql_mode="STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION"
+    ports:
+      - 36500:3306
+    volumes:
+      - open-rally-edge-db-data:/var/lib/mysql
+    networks:
+      - open-rally-edge-network
+
+volumes:
+  open-rally-edge-db-data:
+ 
+networks:
+  open-rally-edge-network:
+    external: true
