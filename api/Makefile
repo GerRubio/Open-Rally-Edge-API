@@ -33,12 +33,12 @@ logs: ## Show Symfony logs in real time
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} symfony server:log
 
 # Backend commands
-composer-install: ## Installs composer dependencies
+composer-install: ## Installs Composer dependencies
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} composer install --no-interaction
 # End backend commands
 
 ssh-be: ## Bash into the be container
 	U_ID=${UID} docker exec -it --user ${UID} ${DOCKER_BE} bash
 
-code-style: ## Runs php-cs to fix code styling following Symfony rules
+code-style: ## Runs PHP-CS to fix code styling following Symfony rules
 	U_ID=${UID} docker exec --user ${UID} ${DOCKER_BE} php-cs-fixer fix src --rules=@Symfony
