@@ -1,7 +1,6 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
-
         profiling_collect_backtrace: '%kernel.debug%'
 
     orm:
@@ -13,9 +12,9 @@ doctrine:
         auto_mapping: true
         mappings:
             App:
-                type: attribute
+                type: xml
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
+                dir: '%kernel.project_dir%/config/orm/mapping'
                 prefix: 'App\Entity'
                 alias: App
 

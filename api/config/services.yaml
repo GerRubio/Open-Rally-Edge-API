@@ -11,3 +11,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    App\Controller\Action\:
+        resource: '../src/Controller/Action/'
+        tags: [ 'controller.service_arguments' ]
+
+    App\Controller\Listener\ExceptionResponseTransformerListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
