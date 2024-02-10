@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+
+  # MAILER
+  open-rally-edge-mailer:
+    container_name: open-rally-edge-mailer
+    build:
+      context: ./docker/php
+      args:
+        UID: $U_ID
+    ### XDEBUG 3 ###
+    # Use your client IP here
+    # Linux: run "ip a | grep docker0"
+    # Windows (with WSL2): grep nameserver /etc/resolv.conf | cut -d ' ' -f2
+    environment:
+      XDEBUG_CLIENT_HOST: 172.29.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=application
+    volumes:
+      - ./:/appdata/www
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
+    depends_on:
+      - open-rally-edge-mailer-db
+    networks:
+      - open-rally-edge-network
+
+  # DATABASE
+  open-rally-edge-mailer-db:
+    container_name: open-rally-edge-mailer-db
+    build:
+      context: ./docker/database
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: open-rally-edge-db
+      MYSQL_USER: ger_rubio
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --sql_mode="STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION"
+    ports:
+      - 36100:3306
+    volumes:
+      - open-rally-edge-mailer-db-data:/var/lib/mysql
+    networks:
+      - open-rally-edge-network
+
+  # CATCHER
+  open-rally-edge-mailcatcher:
+    container_name: open-rally-edge-mailcatcher
+    image: schickling/mailcatcher
+    ports:
+      - 1080:1080
+      - 1025:1025
+    depends_on:
+      - open-rally-edge-mailer-db
+    networks:
+      - open-rally-edge-network
+
+volumes:
+  open-rally-edge-mailer-db-data:
+
+networks:
+  open-rally-edge-network:
+    external: true
+    
