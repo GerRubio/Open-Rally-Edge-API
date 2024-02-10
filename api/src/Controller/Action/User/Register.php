@@ -6,7 +6,9 @@ use App\Entity\User;
 use App\Service\Request\RequestService;
 use App\Service\User\UserRegisterService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 
+#[AsController]
 class Register
 {
     private UserRegisterService $userRegisterService;

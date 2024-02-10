@@ -1,7 +1,4 @@
 api_platform:
-    title: Open Rally Edge
-    version: 1.0.0
-
     mapping:
         paths:
             - '%kernel.project_dir%/config/api_platform/resources'
@@ -16,6 +13,8 @@ api_platform:
                 name: Authorization
                 type: header
 
-    enable_swagger_ui: false
     enable_re_doc: true
+    enable_swagger_ui: false
     show_webby: false
+    title: Open Rally Edge
+    version: 1.0.0

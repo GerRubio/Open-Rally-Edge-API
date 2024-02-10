@@ -13,9 +13,9 @@ framework:
         log: true
 
     serializer:
+        enable_annotations: true
         mapping:
-            path:
-                - '%kernel.project_dir%/config/api_platform/serialization'
+            paths: ['%kernel.project_dir%/config/api_platform/serialization']
 
 when@test:
     framework:

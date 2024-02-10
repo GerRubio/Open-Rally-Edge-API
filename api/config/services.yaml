@@ -14,7 +14,7 @@ services:
 
     App\Controller\Action\:
         resource: '../src/Controller/Action/'
-        tags: [ 'controller.service_arguments' ]
+        tags: ['controller.service_arguments']
 
     App\Controller\Listener\ExceptionResponseTransformerListener:
         tags:

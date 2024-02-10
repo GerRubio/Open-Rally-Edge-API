@@ -1,18 +1,19 @@
-App\Entity\User:
-  attributes:
-    normalization_context:
-      groups: [user_read]
+resources:
+  App\Entity\User:
+    operations:
+      ApiPlatform\Metadata\Get: ~
 
-  collectionOperations:
-    register:
-      method: POST
-      path: /users/register
-      controller: App\Controller\Action\User\Register
-      denormalization_context:
-        groups: [user_register]
-      openapi_context:
-        summary: Register a new user
+      # User register
+      user_register:
+        class: ApiPlatform\Metadata\Post
+        controller: App\Controller\Action\User\Register
+        method: POST
+        uriTemplate: /users/register
 
-  itemOperations:
-    get:
-      method: GET
+        denormalizationContext:
+          groups: ['user_register']
+        normalizationContext:
+          groups: ['user_read']
+
+        openapi:
+          summary: Register a new user
