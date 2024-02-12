@@ -30,26 +30,26 @@ services:
     # Linux: run "ip a | grep docker0"
     # Windows (with WSL2): grep nameserver /etc/resolv.conf | cut -d ' ' -f2
     environment:
-        XDEBUG_CLIENT_HOST: 172.0.0.11
-        XDEBUG_CLIENT_PORT: 9003
-        PHP_IDE_CONFIG: serverName=application
+      XDEBUG_CLIENT_HOST: 172.29.0.1
+      XDEBUG_CLIENT_PORT: 9003
+      PHP_IDE_CONFIG: serverName=application
     volumes:
       - ./:/appdata/www
       - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ~/.ssh/id_rsa:/home/appuser/.ssh/id_rsa
     depends_on:
-      - open-rally-edge-db
+      - open-rally-edge-api-db
     networks:
       - open-rally-edge-network
 
   # DATABASE
-  open-rally-edge-db:
-    container_name: open-rally-edge-db
+  open-rally-edge-api-db:
+    container_name: open-rally-edge-api-db
     build:
       context: ./docker/database
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: open-rally-edge
+      MYSQL_DATABASE: open-rally-edge-api-db
       MYSQL_USER: ger_rubio
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root
@@ -57,13 +57,13 @@ services:
     ports:
       - 36000:3306
     volumes:
-      - open-rally-edge-db-data:/var/lib/mysql
+      - open-rally-edge-api-db-data:/var/lib/mysql
     networks:
       - open-rally-edge-network
 
 volumes:
-  open-rally-edge-db-data:
- 
+  open-rally-edge-api-db-data:
+
 networks:
   open-rally-edge-network:
     external: true

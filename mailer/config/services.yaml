@@ -4,10 +4,17 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $host: '%env(string:HOST)%'
+            $mailerDefaultSender: '%env(string:MAILER_DEFAULT_SENDER)%'
 
-    App\:
+    Mailer\:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+
+    Mailer\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
