@@ -8,7 +8,7 @@ resources:
         class: ApiPlatform\Metadata\Post
         controller: App\Controller\Action\User\Register
         method: POST
-        uriTemplate: /users/register
+        uriTemplate: /users/user_register
 
         denormalizationContext:
           groups: ['user_register']
@@ -48,3 +48,19 @@ resources:
                     properties:
                       message:
                         type: string
+
+      # Activate user account
+      activate_user_account:
+        class: ApiPlatform\Metadata\Put
+        controller: App\Controller\Action\User\ActivateAccount
+        deserialize: false
+        method: PUT
+        uriTemplate: /users/{id}/activate_user_account
+
+        denormalizationContext:
+          groups: ['user_activate']
+        normalizationContext:
+          groups: ['user_read']
+
+        openapi:
+          summary: Activates a user account
