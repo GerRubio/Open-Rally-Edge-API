@@ -17,3 +17,34 @@ resources:
 
         openapi:
           summary: Register a new user
+
+      # Resend activation Email
+      resend_activation_email:
+        class: ApiPlatform\Metadata\Post
+        controller: App\Controller\Action\User\ResendActivationEmail
+        deserialize: false
+        method: POST
+        uriTemplate: /users/resend_activation_email
+
+        openapi:
+          summary: Sends activation E-Mail to inactive user
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      required: true
+
+          responses:
+            200:
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      message:
+                        type: string
