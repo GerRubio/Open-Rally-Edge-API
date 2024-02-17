@@ -16,7 +16,7 @@ resources:
           groups: ['user_read']
 
         openapi:
-          summary: Register a new user
+          summary: Register a new user.
 
       # Resend activation Email
       resend_activation_email:
@@ -27,7 +27,7 @@ resources:
         uriTemplate: /users/resend_activation_email
 
         openapi:
-          summary: Sends activation E-Mail to inactive user
+          summary: Sends activation E-Mail to inactive user.
           requestBody:
             content:
               application/json:
@@ -63,4 +63,34 @@ resources:
           groups: ['user_read']
 
         openapi:
-          summary: Activates a user account
+          summary: Activates a user account.
+
+      # Login
+      login:
+        class: ApiPlatform\Metadata\Post
+        method: POST
+        routeName: api_login_check
+
+        openapi:
+          summary: Login a user in the API.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    password:
+                      type: string
+
+          responses:
+            200:
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      token:
+                        type: string

@@ -9,7 +9,6 @@ use Doctrine\ORM\OptimisticLockException;
 
 class UserRepository extends BaseRepository
 {
-
     protected static function entityClass(): string
     {
         return User::class;
