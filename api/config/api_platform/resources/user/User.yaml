@@ -94,3 +94,68 @@ resources:
                     properties:
                       token:
                         type: string
+
+      # Request reset password
+      request_reset_password:
+        class: ApiPlatform\Metadata\Post
+        controller: App\Controller\Action\User\RequestResetPassword
+        deserialize: false
+        method: POST
+        uriTemplate: /users/request_reset_password
+
+        openapi:
+          summary: Request an E-Mail with a URL to reset a user password.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      required: true
+
+          responses:
+            200:
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+
+      # Reset password
+      reset_password:
+        class: ApiPlatform\Metadata\Put
+        controller: App\Controller\Action\User\ResetPassword
+        deserialize: false
+        method: PUT
+        uriTemplate: /users/{id}/reset_password
+
+        openapi:
+          summary: Reset user password.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    resetPasswordToken:
+                      type: string
+                      required: true
+                    password:
+                      type: string
+                      required: true
+
+          responses:
+            200:
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      message:
+                        type: string
