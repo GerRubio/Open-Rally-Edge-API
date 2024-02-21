@@ -159,3 +159,26 @@ resources:
                     properties:
                       message:
                         type: string
+
+      # Change password
+      change_password:
+        class: ApiPlatform\Metadata\Put
+        controller: App\Controller\Action\User\ChangePassword
+        deserialize: false
+        method: PUT
+        uriTemplate: /users/{id}/change_password
+
+        openapi:
+          summary: Changes user password.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    oldPassword:
+                      type: string
+                      required: true
+                    newPassword:
+                      type: string
+                      required: true
