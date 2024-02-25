@@ -2,6 +2,7 @@ resources:
   App\Entity\User:
     operations:
       ApiPlatform\Metadata\Get: ~
+      ApiPlatform\Metadata\GetCollection: ~
 
       # User register
       user_register:
@@ -182,3 +183,23 @@ resources:
                     newPassword:
                       type: string
                       required: true
+
+      # Upload avatar:
+      upload_avatar:
+        class: ApiPlatform\Metadata\Post
+        controller: App\Controller\Action\User\UploadAvatar
+        deserialize: false
+        method: POST
+        uriTemplate: /users/{id}/avatar
+
+        openapi:
+          summary: Updates the user avatar.
+          requestBody:
+            content:
+              multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    avatar:
+                      type: string
+                      format: binary

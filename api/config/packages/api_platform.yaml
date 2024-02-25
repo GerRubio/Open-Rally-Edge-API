@@ -17,4 +17,4 @@ api_platform:
     enable_swagger_ui: false
     show_webby: false
     title: Open Rally Edge
-    version: 1.0.0
+    version: 1.0

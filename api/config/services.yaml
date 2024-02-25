@@ -19,3 +19,14 @@ services:
     App\Controller\Listener\ExceptionResponseTransformerListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 100 }
+
+    # AWS for user avatar
+    app.images.s3:
+        class: Aws\S3\S3Client
+        arguments:
+            - version: '%env(resolve:VERSION)%'
+              region: '%env(resolve:REGION)%'
+
+              credentials:
+                  key: '%env(resolve:KEY)%'
+                  secret: '%env(resolve:SECRET)%'
