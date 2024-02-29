@@ -19,7 +19,7 @@ resources:
         openapi:
           summary: Register a new user.
 
-      # Resend activation Email
+      # Resend activation E-Mail
       resend_activation_email:
         class: ApiPlatform\Metadata\Post
         controller: App\Controller\Action\User\ResendActivationEmail
@@ -65,36 +65,6 @@ resources:
 
         openapi:
           summary: Activates a user account.
-
-      # Login
-      login:
-        class: ApiPlatform\Metadata\Post
-        method: POST
-        routeName: api_login_check
-
-        openapi:
-          summary: Login a user in the API.
-          requestBody:
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    username:
-                      type: string
-                    password:
-                      type: string
-
-          responses:
-            200:
-              description: OK
-              content:
-                application/json:
-                  schema:
-                    type: object
-                    properties:
-                      token:
-                        type: string
 
       # Request reset password
       request_reset_password:

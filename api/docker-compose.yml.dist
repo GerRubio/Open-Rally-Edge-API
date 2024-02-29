@@ -49,7 +49,7 @@ services:
       context: ./docker/database
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: open-rally-edge-api-db
+      MYSQL_DATABASE: open_rally_edge_api_db
       MYSQL_USER: ger_rubio
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root
