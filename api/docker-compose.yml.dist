@@ -47,7 +47,6 @@ services:
     container_name: open-rally-edge-api-db
     build:
       context: ./docker/database
-    image: mysql:8.0
     environment:
       MYSQL_DATABASE: open_rally_edge_api_db
       MYSQL_USER: ger_rubio

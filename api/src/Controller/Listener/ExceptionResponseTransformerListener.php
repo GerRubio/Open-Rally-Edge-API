@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Controller\Listener;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,6 +26,7 @@ class ExceptionResponseTransformerListener
     private function prepareResponse(array $data, int $statusCode): JsonResponse
     {
         $response = new JsonResponse($data, $statusCode);
+
         $response->headers->set('Server-Time', strval(\time()));
         $response->headers->set('X-Error-Code', strval($statusCode));
 

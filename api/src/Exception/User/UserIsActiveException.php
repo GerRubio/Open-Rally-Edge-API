@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Exception\User;
 
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
