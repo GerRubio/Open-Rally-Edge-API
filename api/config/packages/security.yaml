@@ -1,4 +1,6 @@
 security:
+    enable_authenticator_manager: true
+
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
             algorithm: auto
@@ -15,7 +17,7 @@ security:
             methods: [GET]
             security: false
 
-        # Core
+        # Users
         user_register:
             pattern: ^/api/v1/users/user_register
             methods: [POST]
@@ -36,6 +38,11 @@ security:
             pattern: ^/api/v1/users/.*/reset_password
             methods: [PUT]
             security: false
+        google_oauth:
+            pattern: ^/api/v1/users/google/oauth
+            methods: [GET]
+            custom_authenticators:
+                - App\Service\Google\GoogleService
         login:
             pattern: /api/v1/users/login
             provider: user_provider

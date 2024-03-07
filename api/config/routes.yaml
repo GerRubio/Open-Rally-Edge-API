@@ -1,2 +1,6 @@
 api_login_check:
     path: /api/v1/users/login_check
+
+google_oauth:
+    path: /api/v1/users/google/oauth
+    controller: App\Controller\Action\Google\Authorization

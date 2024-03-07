@@ -4,6 +4,9 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            $clientId: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
+            $clientSecret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
 
     App\:
         resource: '../src/'

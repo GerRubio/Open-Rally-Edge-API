@@ -10,7 +10,7 @@ api_platform:
         versions: [3]
         api_keys:
             apiKey:
-                name: Authorization
+                name: AuthorizationStart
                 type: header
 
     enable_re_doc: true

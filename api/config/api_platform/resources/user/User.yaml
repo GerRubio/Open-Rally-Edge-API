@@ -173,3 +173,34 @@ resources:
                     avatar:
                       type: string
                       format: binary
+
+      # Google OAuth Callback
+      google_oauth:
+        class: ApiPlatform\Metadata\Get
+        controller: App\Controller\Action\Google\Authorization
+        deserialize: false
+        method: GET
+        uriTemplate: /users/google/oauth
+
+        openapi:
+          summary: OAuth with Google.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    accessToken:
+                      type: string
+                      required: true
+
+            responses:
+              200:
+                description: OK
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        token:
+                          type: string
