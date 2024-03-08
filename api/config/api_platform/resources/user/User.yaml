@@ -190,7 +190,7 @@ resources:
                 schema:
                   type: object
                   properties:
-                    accessToken:
+                    code:
                       type: string
                       required: true
 

@@ -60,6 +60,7 @@ security:
             jwt: ~
 
     access_control:
+        - { path: ^/api/v1/users/google/oauth, roles: PUBLIC_ACCESS }
         - { path: ^/api/v1/users/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/v1, roles: IS_AUTHENTICATED_FULLY }
 
