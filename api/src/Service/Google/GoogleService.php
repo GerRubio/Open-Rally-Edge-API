@@ -13,13 +13,13 @@ use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
@@ -46,6 +46,10 @@ class GoogleService extends OAuth2Authenticator implements AuthenticationEntrypo
         $this->JWTTokenManager = $JWTTokenManager;
         $this->userRepository = $userRepository;
     }
+
+    /**
+     * CUSTOM FUNCTIONS
+     */
 
     /**
      * @throws OptimisticLockException
@@ -93,12 +97,16 @@ class GoogleService extends OAuth2Authenticator implements AuthenticationEntrypo
         return $user;
     }
 
+    /**
+     * OAUTH2AUTHENTICATOR FUNCTIONS
+     */
+
     public function supports(Request $request): ?bool
     {
         return $request->attributes->get('_route') === 'google_oauth';
     }
 
-    public function authenticate(Request $request): SelfValidatingPassport
+    public function authenticate(Request $request): Passport
     {
         $client = $this->clientRegistry->getClient('google');
         $accessToken = $this->fetchAccessToken($client);
@@ -110,31 +118,24 @@ class GoogleService extends OAuth2Authenticator implements AuthenticationEntrypo
         );
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?JsonResponse
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        $user = $token->getUser();
-        $userToken = $this->JWTTokenManager->create($user);
-
-        return new JsonResponse(
-            ['token' => $userToken]
-        );
+        return null;
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?JsonResponse
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $message = strtr($exception->getMessageKey(), $exception->getMessageData());
 
-        return new JsonResponse(
+        return new Response(
             $message, Response::HTTP_INTERNAL_SERVER_ERROR
         );
     }
 
-    public function start(Request $request, AuthenticationException $authException = null): ?JsonResponse
+    public function start(Request $request, AuthenticationException $authException = null): Response
     {
-        $message = strtr($authException->getMessageKey(), $authException->getMessageData());
-
-        return new JsonResponse(
-            $message, Response::HTTP_FORBIDDEN
+        return new Response(
+            'JWT required', Response::HTTP_UNAUTHORIZED
         );
     }
 }
