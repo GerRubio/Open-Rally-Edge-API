@@ -174,7 +174,7 @@ resources:
                       type: string
                       format: binary
 
-      # Google OAuth Callback
+      # Google OAuth
       google_oauth:
         class: ApiPlatform\Metadata\Get
         controller: App\Controller\Action\Google\Authorization
