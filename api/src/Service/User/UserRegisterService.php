@@ -33,6 +33,7 @@ class UserRegisterService
         $user = new User($name, $email);
 
         $user->setPassword($this->encoderService->generateEncodedPassword($user, $password));
+        $user->setRoles(['ROLE_USER']);
 
         // Save user
         try {

@@ -3,6 +3,7 @@
     <entity name="App\Entity\User" table="user">
         <id name="id" type="string" length="36"/>
 
+        <field name="roles" type="json"/>
         <field name="name" length="100"/>
         <field name="email" length="100"/>
         <field name="password" length="100" nullable="true"/>

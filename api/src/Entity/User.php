@@ -8,6 +8,7 @@ use Symfony\Component\Uid\Uuid;
 class User implements UserInterface
 {
     private string $id;
+    private array $roles = [];
     private string $name;
     private string $email;
     private ?string $password;
@@ -35,6 +36,24 @@ class User implements UserInterface
     public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
     public function getName(): string
@@ -124,11 +143,6 @@ class User implements UserInterface
     public function markAsUpdated(): void
     {
         $this->updatedAt = new \DateTime();
-    }
-
-    public function getRoles(): array
-    {
-        return [];
     }
 
     public function getSalt(): void

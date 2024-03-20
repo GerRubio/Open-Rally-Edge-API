@@ -15,7 +15,7 @@ security:
         docs:
             pattern: ^/api/v1/docs
             methods: [GET]
-            security: false
+            jwt: ~
 
         # Users
         user_register:
@@ -62,6 +62,7 @@ security:
     access_control:
         - { path: ^/api/v1/users/google/oauth, roles: PUBLIC_ACCESS }
         - { path: ^/api/v1/users/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/v1/docs, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/v1, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
