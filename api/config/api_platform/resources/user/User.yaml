@@ -1,8 +1,18 @@
 resources:
   App\Entity\User:
+    normalizationContext:
+      groups: ['user_read']
+
     operations:
-      ApiPlatform\Metadata\Get: ~
-      ApiPlatform\Metadata\GetCollection: ~
+      ApiPlatform\Metadata\Delete:
+        security: 'is_granted("USER_DELETE", object)'
+      ApiPlatform\Metadata\Get:
+        security: 'is_granted("USER_READ", object)'
+      ApiPlatform\Metadata\Put:
+        security: 'is_granted("USER_UPDATE", object)'
+
+        denormalizationContext:
+          groups: ['user_update']
 
       # User register
       user_register:
@@ -13,8 +23,6 @@ resources:
 
         denormalizationContext:
           groups: ['user_register']
-        normalizationContext:
-          groups: ['user_read']
 
         openapi:
           summary: Register a new user.
@@ -60,8 +68,6 @@ resources:
 
         denormalizationContext:
           groups: ['user_activate']
-        normalizationContext:
-          groups: ['user_read']
 
         openapi:
           summary: Activates a user account.
