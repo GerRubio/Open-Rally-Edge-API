@@ -14,7 +14,7 @@ api_platform:
                 type: header
 
     enable_re_doc: true
-    enable_swagger_ui: false
+    enable_swagger_ui: true
     show_webby: false
     title: Open Rally Edge
     version: 1.0

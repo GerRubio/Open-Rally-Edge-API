@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
 
@@ -18,6 +20,7 @@ class User implements UserInterface
     private bool $active;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
+    private Collection $projects;
 
     public function __construct(string $name, string $email)
     {
@@ -31,6 +34,7 @@ class User implements UserInterface
         $this->active = false;
         $this->createdAt = new \DateTime();
         $this->markAsUpdated();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): string
@@ -143,6 +147,35 @@ class User implements UserInterface
     public function markAsUpdated(): void
     {
         $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): void
+    {
+        if ($this->projects->contains($project)) {
+            return;
+        }
+
+        $this->projects->add($project);
+    }
+
+    public function removeProject(Project $project): void
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+        }
+    }
+
+    public function isUserProject(Project $project): bool
+    {
+        return $this->projects->contains($project);
     }
 
     public function getSalt(): void
