@@ -1,0 +1,16 @@
+App\Entity\Project:
+  attributes:
+    id:
+      groups: ['project_read']
+    name:
+      groups: ['project_read', 'project_create', 'project_update']
+    description:
+      groups: ['project_read']
+    link:
+      groups: ['project_read']
+    owner:
+      groups: ['project_read', 'project_create']
+    createdAt:
+      groups: ['project_read']
+    updatedAt:
+      groups: ['project_read']

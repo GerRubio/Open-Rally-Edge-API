@@ -1,0 +1,22 @@
+resources:
+  App\Entity\Project:
+    normalizationContext:
+      groups: ['project_read']
+
+    operations:
+      ApiPlatform\Metadata\Delete:
+        security: 'is_granted("PROJECT_DELETE", object)'
+      ApiPlatform\Metadata\Get:
+        security: 'is_granted("PROJECT_READ", object)'
+      ApiPlatform\Metadata\Put:
+        security: 'is_granted("PROJECT_UPDATE", object)'
+
+        denormalizationContext:
+          groups: ['project_update']
+
+    properties:
+      users:
+        subresource:
+          resourceClass: App\Entity\User
+          collection: false
+          maxDepth: 1

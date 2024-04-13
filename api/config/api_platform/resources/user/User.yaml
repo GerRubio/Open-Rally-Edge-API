@@ -210,3 +210,10 @@ resources:
                       properties:
                         token:
                           type: string
+
+    properties:
+      projects:
+        subresource:
+          resourceClass: App\Entity\Project
+          collection: true
+          maxDepth: 2

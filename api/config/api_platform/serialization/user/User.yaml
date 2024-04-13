@@ -10,10 +10,12 @@ App\Entity\User:
       groups: ['user_register']
     avatar:
       groups: ['user_read']
+    token:
+      groups: [ 'user_activate' ]
     active:
       groups: ['user_read']
-    token:
-      groups: ['user_activate']
+    projects:
+      groups: ['user_read']
     createdAt:
       groups: ['user_read']
     updatedAt:
