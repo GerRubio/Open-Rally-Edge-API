@@ -15,7 +15,6 @@ class Project
     private User $owner;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
-    private Collection $users;
 
     public function __construct(string $name, User $owner)
     {
@@ -26,7 +25,6 @@ class Project
         $this->owner = $owner;
         $this->createdAt = new \DateTime();
         $this->markAsUpdated();
-        $this->users = new ArrayCollection([$owner]);
         $owner->addProject($this);
     }
 
@@ -83,35 +81,6 @@ class Project
     public function markAsUpdated(): void
     {
         $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): void
-    {
-        if ($this->users->contains($user)) {
-            return;
-        }
-
-        $this->users->add($user);
-    }
-
-    public function removeUser(User $user): void
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-        }
-    }
-
-    public function containsUser(User $user): bool
-    {
-        return $this->users->contains($user);
     }
 
     public function isOwnedBy(User $user): bool

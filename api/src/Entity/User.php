@@ -18,9 +18,9 @@ class User implements UserInterface
     private ?string $token;
     private ?string $resetPasswordToken;
     private bool $active;
+    private Collection $projects;
     private \DateTime $createdAt;
     private \DateTime $updatedAt;
-    private Collection $projects;
 
     public function __construct(string $name, string $email)
     {
@@ -32,9 +32,9 @@ class User implements UserInterface
         $this->token = \sha1(\uniqid());
         $this->resetPasswordToken = null;
         $this->active = false;
+        $this->projects = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->markAsUpdated();
-        $this->projects = new ArrayCollection();
     }
 
     public function getId(): string
@@ -134,21 +134,6 @@ class User implements UserInterface
         $this->active = $active;
     }
 
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    public function markAsUpdated(): void
-    {
-        $this->updatedAt = new \DateTime();
-    }
-
     /**
      * @return Collection
      */
@@ -178,6 +163,21 @@ class User implements UserInterface
         return $this->projects->contains($project);
     }
 
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function markAsUpdated(): void
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getSalt(): void
     {
 
@@ -200,6 +200,6 @@ class User implements UserInterface
 
     public function getUserIdentifier(): string
     {
-        return '';
+        return $this->id;
     }
 }

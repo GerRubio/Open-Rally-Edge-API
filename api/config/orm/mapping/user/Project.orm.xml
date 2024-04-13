@@ -9,8 +9,9 @@
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime"/>
 
-        <many-to-one field="owner" target-entity="App\Entity\User"/>
-        <many-to-many field="users" target-entity="App\Entity\User" mapped-by="projects"/>
+        <many-to-one field="owner" target-entity="App\Entity\User" inversed-by="projects">
+            <join-column name="owner_id"/>
+        </many-to-one>
 
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="markAsUpdated"/>

@@ -14,19 +14,12 @@
         <field name="createdAt" type="datetime"/>
         <field name="updatedAt" type="datetime"/>
 
-        <many-to-many field="projects" target-entity="App\Entity\Project" inversed-by="users">
+        <one-to-many field="projects" target-entity="App\Entity\Project" mapped-by="owner">
             <cascade>
+                <cascade-persist/>
                 <cascade-remove/>
             </cascade>
-            <join-table name="user_project_user">
-                <join-columns>
-                    <join-column name="user_id"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="project_id"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        </one-to-many>
 
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="markAsUpdated"/>
