@@ -5,9 +5,9 @@ App\Entity\Project:
     name:
       groups: ['project_read', 'project_create', 'project_update']
     description:
-      groups: ['project_read']
+      groups: ['project_read', 'project_update']
     link:
-      groups: ['project_read']
+      groups: ['project_read', 'project_update']
     owner:
       groups: ['project_read', 'project_create']
     createdAt:

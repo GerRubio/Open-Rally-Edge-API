@@ -8,7 +8,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class UserVoter extends Voter
 {
     public const USER_READ = 'USER_READ';
-    public const USER_UPDATE = 'USER_UPDATE';
     public const USER_DELETE = 'USER_DELETE';
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -29,7 +28,6 @@ class UserVoter extends Voter
     {
         return [
             self::USER_READ,
-            self::USER_UPDATE,
             self::USER_DELETE,
         ];
     }

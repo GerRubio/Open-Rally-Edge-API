@@ -8,11 +8,6 @@ resources:
         security: 'is_granted("USER_DELETE", object)'
       ApiPlatform\Metadata\Get:
         security: 'is_granted("USER_READ", object)'
-      ApiPlatform\Metadata\Put:
-        security: 'is_granted("USER_UPDATE", object)'
-
-        denormalizationContext:
-          groups: ['user_update']
 
       # User register
       user_register:

@@ -8,11 +8,43 @@ resources:
         security: 'is_granted("PROJECT_DELETE", object)'
       ApiPlatform\Metadata\Get:
         security: 'is_granted("PROJECT_READ", object)'
-      ApiPlatform\Metadata\Put:
-        security: 'is_granted("PROJECT_UPDATE", object)'
 
-        denormalizationContext:
-          groups: ['project_update']
+      # Create project
+      create_project:
+        class: ApiPlatform\Metadata\Post
+        controller: App\Controller\Action\Project\CreateProject
+        input: App\DTO\Project\ProjectDTO
+        method: POST
+        uriTemplate: /projects/{id}/create_project
+
+        openapi:
+          summary: Create a new project.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                    description:
+                      type: string
+                      required: false
+                    link:
+                      type: string
+                      required: false
+
+          responses:
+            200:
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      message:
+                        type: string
 
     properties:
       users:
