@@ -85,4 +85,9 @@ class Project
     {
         return $this->owner->getId() === $user->getId();
     }
+
+    public function equals(Project $project): bool
+    {
+        return $this->id === $project->getId();
+    }
 }

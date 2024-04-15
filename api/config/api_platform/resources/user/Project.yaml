@@ -8,6 +8,7 @@ resources:
         security: 'is_granted("PROJECT_DELETE", object)'
       ApiPlatform\Metadata\Get:
         security: 'is_granted("PROJECT_READ", object)'
+      ApiPlatform\Metadata\GetCollection: ~
 
       # Create project
       create_project:

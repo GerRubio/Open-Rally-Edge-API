@@ -5,10 +5,10 @@ namespace App\Security\Authorization\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class UserVoter extends Voter
+class ProjectVoter extends Voter
 {
-    public const USER_READ = 'USER_READ';
-    public const USER_DELETE = 'USER_DELETE';
+    public const PROJECT_READ = 'PROJECT_READ';
+    public const PROJECT_DELETE = 'PROJECT_DELETE';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -27,8 +27,8 @@ class UserVoter extends Voter
     private function supportedAttributes(): array
     {
         return [
-            self::USER_READ,
-            self::USER_DELETE,
+            self::PROJECT_READ,
+            self::PROJECT_DELETE,
         ];
     }
 }

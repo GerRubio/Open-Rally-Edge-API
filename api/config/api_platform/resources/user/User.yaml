@@ -8,6 +8,8 @@ resources:
         security: 'is_granted("USER_DELETE", object)'
       ApiPlatform\Metadata\Get:
         security: 'is_granted("USER_READ", object)'
+      ApiPlatform\Metadata\GetCollection:
+        security: 'is_granted("USER_READ", object)'
 
       # User register
       user_register:
