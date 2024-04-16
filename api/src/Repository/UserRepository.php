@@ -50,6 +50,23 @@ class UserRepository extends BaseRepository
         return $user;
     }
 
+    public function findOneByProjects(string $id): User
+    {
+        $projectsUser = $this->objectRepository->createQueryBuilder('u')
+            ->leftJoin('u.projects', 'p')
+            ->addSelect('p')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if (null === $user = $projectsUser) {
+            throw UserNotFoundException::fromUserId($id);
+        }
+
+        return $user;
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException

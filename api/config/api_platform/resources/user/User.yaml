@@ -209,6 +209,16 @@ resources:
                         token:
                           type: string
 
+      # Get user projects
+      get_user_projects:
+        class: ApiPlatform\Metadata\Get
+        controller: App\Controller\Action\User\GetUserProjects
+        method: GET
+        uriTemplate: /users/{id}/get_user_projects
+
+        openapi:
+          summary: Retrieve a user projects.
+
     properties:
       projects:
         subresource:
