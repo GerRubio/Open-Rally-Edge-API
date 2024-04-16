@@ -8,7 +8,8 @@ resources:
         security: 'is_granted("PROJECT_DELETE", object)'
       ApiPlatform\Metadata\Get:
         security: 'is_granted("PROJECT_READ", object)'
-      ApiPlatform\Metadata\GetCollection: ~
+      ApiPlatform\Metadata\GetCollection:
+        filters: ['app.custom.search_filter', 'app.custom.order_filter']
 
       # Create project
       create_project:

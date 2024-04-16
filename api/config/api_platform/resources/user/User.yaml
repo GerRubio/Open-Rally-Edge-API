@@ -9,6 +9,7 @@ resources:
       ApiPlatform\Metadata\Get:
         security: 'is_granted("USER_READ", object)'
       ApiPlatform\Metadata\GetCollection:
+        filters: ['app.custom.search_filter', 'app.custom.order_filter']
         security: 'is_granted("USER_READ", object)'
 
       # User register

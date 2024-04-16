@@ -1,5 +1,9 @@
 parameters:
 
+imports:
+    - { resource: 'api_platform/filters/search-filter.yaml' }
+    - { resource: 'api_platform/filters/order-filter.yaml' }
+
 services:
     _defaults:
         autowire: true
