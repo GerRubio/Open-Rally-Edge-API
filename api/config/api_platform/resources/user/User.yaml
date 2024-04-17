@@ -11,6 +11,11 @@ resources:
       ApiPlatform\Metadata\GetCollection:
         filters: ['app.custom.search_filter', 'app.custom.order_filter']
         security: 'is_granted("USER_READ", object)'
+      ApiPlatform\Metadata\Put:
+        security: 'is_granted("USER_UPDATE", object)'
+
+        denormalizationContext:
+          groups: ['user_update']
 
       # User register
       user_register:
@@ -217,7 +222,7 @@ resources:
         uriTemplate: /users/{id}/get_user_projects
 
         openapi:
-          summary: Retrieve a user projects.
+          summary: Retrieves a user projects.
 
     properties:
       projects:

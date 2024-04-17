@@ -3,12 +3,21 @@
 namespace App\Entity;
 
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Project
 {
     private string $id;
     private string $name;
     private string $description;
+
+    /**
+     * @Assert\Url
+     * (
+     *    message = "The URL '{{ value }}' is not valid.",
+     *    protocols = {"http", "https"}
+     * )
+     */
     private string $link;
     private User $owner;
     private \DateTime $createdAt;

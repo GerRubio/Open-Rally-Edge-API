@@ -6,12 +6,20 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class User implements UserInterface
 {
     private string $id;
     private array $roles = [];
     private string $name;
+
+    /**
+     * @Assert\Email
+     * (
+     *    message = "This E-Mail '{{ value }}' is not valid."
+     * )
+     */
     private string $email;
     private ?string $password;
     private ?string $avatar;

@@ -10,6 +10,11 @@ resources:
         security: 'is_granted("PROJECT_READ", object)'
       ApiPlatform\Metadata\GetCollection:
         filters: ['app.custom.search_filter', 'app.custom.order_filter']
+      ApiPlatform\Metadata\Put:
+        security: 'is_granted("PROJECT_UPDATE", object)'
+
+        denormalizationContext:
+          groups: ['project_update']
 
       # Create project
       create_project:
@@ -17,10 +22,10 @@ resources:
         controller: App\Controller\Action\Project\CreateProject
         input: App\DTO\Project\ProjectDTO
         method: POST
-        uriTemplate: /projects/{id}/create_project
+        uriTemplate: /projects/create_project
 
         openapi:
-          summary: Create a new project.
+          summary: Creates a new project.
           requestBody:
             content:
               application/json:
