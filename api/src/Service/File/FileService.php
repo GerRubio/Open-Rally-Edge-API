@@ -2,6 +2,8 @@
 
 namespace App\Service\File;
 
+use App\Exception\File\FileNotFoundException;
+use Exception;
 use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use Psr\Log\LoggerInterface;
@@ -48,7 +50,7 @@ class FileService
         try {
             return $this->defaultStorage->read($path);
         } catch (FilesystemException) {
-            throw new \App\Exception\File\FileNotFoundException();
+            throw new FileNotFoundException();
         }
     }
 
@@ -67,10 +69,10 @@ class FileService
             if (null !== $path) {
                 $this->defaultStorage->delete($path);
             }
-        } catch (\Exception) {
+        } catch (Exception) {
             $this->logger->warning(sprintf('File %s not found in the storage', $path));
         } catch (FilesystemException) {
-            throw new \App\Exception\File\FileNotFoundException();
+            throw new FileNotFoundException();
         }
     }
 }

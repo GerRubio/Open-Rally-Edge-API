@@ -9,6 +9,7 @@ services:
         autowire: true
         autoconfigure: true
         bind:
+            $endpoint: '%env(resolve:ENDPOINT)%'
             $clientId: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
             $clientSecret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
 
@@ -41,3 +42,7 @@ services:
               credentials:
                   key: '%env(resolve:KEY)%'
                   secret: '%env(resolve:SECRET)%'
+
+    # API Normalizer
+    App\Swagger\Decorator\Normalizer:
+        decorates: 'api_platform.jsonld.normalizer.item'
