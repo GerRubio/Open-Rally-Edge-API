@@ -12,22 +12,11 @@ class RequestService
         $requestData = \json_decode($request->getContent(), true);
 
         if ($isArray) {
-            $arrayData = self::arrayFlatten($requestData);
-
-            foreach ($arrayData as $key => $value) {
-                if ($fieldName === $key) {
-                    return $value;
-                }
-            }
-
-            if ($isRequired) {
-                throw new BadRequestHttpException(\sprintf('Missing field %s', $fieldName));
-            }
-
-            return null;
+            $requestData = self::arrayFlatten($requestData);
         }
 
-        if (\array_key_exists($fieldName, $requestData)) {
+        $isFound = array_key_exists($fieldName, $requestData);
+        if ($isFound) {
             return $requestData[$fieldName];
         }
 
@@ -52,4 +41,5 @@ class RequestService
 
         return $return;
     }
+
 }
