@@ -15,7 +15,8 @@ class RequestService
             $requestData = self::arrayFlatten($requestData);
         }
 
-        $isFound = array_key_exists($fieldName, $requestData);
+        $isFound = \array_key_exists($fieldName, $requestData);
+
         if ($isFound) {
             return $requestData[$fieldName];
         }
@@ -41,5 +42,4 @@ class RequestService
 
         return $return;
     }
-
 }
