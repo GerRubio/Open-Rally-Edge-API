@@ -14,10 +14,9 @@ class RequestService
         if ($isArray) {
             $arrayData = self::arrayFlatten($requestData);
 
-            foreach ($arrayData as $key => $value) {
-                if ($fieldName === $key) {
-                    return $value;
-                }
+            $isFound = array_key_exists($fieldName, $arrayData);
+            if ($isFound) {
+                return $arrayData[$fieldName];
             }
 
             if ($isRequired) {
