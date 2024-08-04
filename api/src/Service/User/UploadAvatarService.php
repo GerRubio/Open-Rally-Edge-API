@@ -6,9 +6,6 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\File\FileService;
 use Doctrine\ORM\Exception\ORMException;
-use Doctrine\ORM\OptimisticLockException;
-use League\Flysystem\FilesystemException;
-use League\Flysystem\Visibility;
 use Symfony\Component\HttpFoundation\Request;
 
 class UploadAvatarService
@@ -24,7 +21,6 @@ class UploadAvatarService
 
     /**
      * @throws ORMException
-     * @throws OptimisticLockException|FilesystemException
      */
     public function uploadAvatar(Request $request, User $user): User
     {
@@ -32,7 +28,7 @@ class UploadAvatarService
 
         $this->fileService->deleteFile($user->getAvatar());
 
-        $fileName = $this->fileService->uploadFile($file, FileService::AVATAR_INPUT_NAME, Visibility::PUBLIC);
+        $fileName = $this->fileService->uploadFile($file, FileService::AVATAR_INPUT_NAME, 'public');
 
         $user->setAvatar($fileName);
 

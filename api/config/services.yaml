@@ -33,15 +33,18 @@ services:
             - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_created, method: onJWTCreated }
 
     # AWS for user avatar
-    app.images.s3:
-        class: Aws\S3\S3Client
+    App\Service\File\FileService:
         arguments:
-            - version: '%env(resolve:VERSION)%'
-              region: '%env(resolve:REGION)%'
+            $bucketName: '%env(BUCKET)%'
+            $client: '@Aws\S3\S3Client'
 
+    Aws\S3\S3Client:
+        arguments:
+            - version: '%env(VERSION)%'
+              region: '%env(REGION)%'
               credentials:
-                  key: '%env(resolve:KEY)%'
-                  secret: '%env(resolve:SECRET)%'
+                  key: '%env(KEY)%'
+                  secret: '%env(SECRET)%'
 
     # API Normalizer
     App\Swagger\Decorator\Normalizer:

@@ -7,7 +7,6 @@ use App\Service\File\FileService;
 use App\Service\User\UploadAvatarService;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use League\Flysystem\FilesystemException;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +30,6 @@ class UploadAvatarServiceTest extends UserServiceTestBase
 
     /**
      * @throws OptimisticLockException
-     * @throws FilesystemException
      * @throws ORMException
      */
     public function testUploadAvatar(): void
